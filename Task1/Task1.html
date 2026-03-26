@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal</title>
+    <link rel="icon" type="image/x-icon" href="ODF.png">
+     <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+section {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+}
+
+
+button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="reset"] {
+    background-color: gray;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: black;
+    color: white;
+}
+img{
+    height: 1cm;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1cm;
+}
+</style>
+
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <h1>Job Application Portal</h1>
+        <nav>
+            <a href="#jobs">JOBS</a>  |
+            <a href="#apply">APPLY</a>
+        </nav>
+    </header>
+
+    <!--Section for job-->
+    <section id="jobs">
+
+        <h2>Available Jobs</h2>
+
+        <!--Using tables for structured format-->
+        <table>
+
+            <tr>
+                <th>Company</th>  <!--using th tag for define the elements as a headings of the table-->
+                <th>Role</th>
+                <th>Location</th>
+            </tr>
+            <tr>
+                <td>Claysys</td>
+                <td>Software Engineer</td>
+                <td>Cochin</td>
+            </tr>
+            <tr>
+                <td>Claysys</td>
+                <td>Marketing Manager</td>
+                <td>Goa</td>
+            </tr>
+            <tr>
+                <td>IJK Technology</td>
+                <td>HR Specialist</td>
+                <td>Coimbatore</td>
+            </tr>
+        </table>
+    </section>
+    
+    <!--Using hr tag in between the 2 section to visual separate -->
+    <hr>
+
+    <section id="apply">
+        <h2>Apply for a Job</h2>
+        <!--using form tag to collect the inputs in the particular-->
+        <form>
+            <table>
+                <tr>
+                    <td><label for="name">Full Name:</label></td>
+                    <td><input type="text" placeholder="enter your name" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input type="email" placeholder="enter your e-mail id" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone No:</label></td>
+                    <td><input type="tel" placeholder="enter your phone number" id="phone" name="phone" required></td>
+                </tr>
+                <tr>
+                    <td><label for="gender">Gender:</label></td>
+                    <td><label for="male">Male</label>
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="female">Female</label>
+                        <input type="radio" id="female" name="gender" value="female">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="position">Position Applied For:</label></td>
+                    <td>
+                        <select name="position" id="position">
+                            <option>-select-</option>
+                            <option value="frontend_developer">Frontend Developer</option>
+                            <option value="backend_developer">Backend Developer</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="skills">Skills:</label></td>
+                    <td><input type="checkbox" id="html" name="skills" value="html"> HTML 
+                    <input type="checkbox" id="css" name="skills" value="css"> CSS 
+                    <input type="checkbox" id="javascript" name="skills" value="javascript"> JavaScript
+                    <input type="checkbox" id="python" name="skills" value="python"> Python
+                    <input type="checkbox" id="sql" name="skills" value="sql"> SQL
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="about">About You:</label></td>
+                    <td><textarea id="about" placeholder="intro about yourself" name="about"></textarea></td>
+                </tr>
+            </table>
+            <button type="submit">Submit Application</button> <button type="reset">Reset</button>
+        </form>
+
+        
+
+    </section>
+
+    
+    <!--Using footer to define bottom contents-->
+    <footer style="display: block; text-align: center;">
+        <img src="ODF.png" alt="company logo">
+        <p>&copy; 2026 Job Portal</p>
+    </footer>
+</body>
+</html>
