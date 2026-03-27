@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSS-TEACHNIQUES-04</title>
+ <link rel="icon" type="image/x-icon" href="../odf1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config={theme:{extend:{colors:{bg:"#050508",surface:"#0d0d14",lime:"#c8ff00",cyan:"#00f0d4",rose:"#ff3f6c",gold:"#f5c842",cream:"#f0ede8"},fontFamily:{display:['"Bebas Neue"','sans-serif'],serif:['"Instrument Serif"','serif'],mono:['"DM Mono"','monospace']},borderRadius:{card:"12px"}}}}
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { cursor: none; overflow-x: hidden; }
+::selection { background: #c8ff00; color: #000; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: #c8ff00; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #050508; }
+
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9990;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .03; pointer-events: none;
+}
+#cursor { position:fixed;width:12px;height:12px;background:#c8ff00;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;mix-blend-mode:exclusion; }
+#cursor-ring { position:fixed;width:36px;height:36px;border:1.5px solid #c8ff00;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.5; }
+
+@keyframes slideDown { from{opacity:0;transform:translateY(-100%)} to{opacity:1;transform:translateY(0)} }
+.anim-slideDown { animation: slideDown .8s cubic-bezier(.16,1,.3,1) both; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.fadeup-1{animation:fadeUp .8s .1s both} .fadeup-2{animation:fadeUp .8s .2s both}
+.fadeup-3{animation:fadeUp .8s .3s both} .fadeup-4{animation:fadeUp .8s .4s both}
+.fadeup-5{animation:fadeUp .8s .5s both}
+
+@keyframes gradShift { to{background-position:200% center} }
+.grad-shift { background:linear-gradient(90deg,#c8ff00,#00f0d4,#c8ff00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 3s linear infinite; }
+
+.reveal { opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.reveal-delay-1{transition-delay:.1s} .reveal-delay-2{transition-delay:.2s} .reveal-delay-3{transition-delay:.3s} .reveal-delay-4{transition-delay:.4s}
+
+.nav-link{position:relative}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#c8ff00;transition:width .3s ease}
+.nav-link:hover{color:#c8ff00!important}
+.nav-link:hover::after{width:100%}
+
+.section-label::before{content:'';display:block;width:40px;height:1px;background:#c8ff00}
+
+.text-grad-white{background:linear-gradient(135deg,#f0ede8 40%,rgba(240,237,232,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.text-stroke-cream{-webkit-text-stroke:1.5px rgba(240,237,232,.25);-webkit-text-fill-color:transparent}
+.text-grad-rainbow{background:linear-gradient(90deg,#ff3f6c,#f5c842,#c8ff00,#00f0d4);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 3s linear infinite}
+.text-stroke-cyan{-webkit-text-stroke:1.5px #00f0d4;-webkit-text-fill-color:transparent;letter-spacing:.05em;transition:letter-spacing .5s}
+.text-stroke-cyan:hover{letter-spacing:.3em}
+
+.tech-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.05) 0%,transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.tech-card:hover::after{opacity:1}
+
+.variant-card{background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:22px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.variant-card:hover{transform:translateY(-3px)}
+.variant-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.04) 0%,transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.variant-card:hover::after{opacity:1}
+
+.code-block{background:#0a0a0f;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px 22px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;position:relative}
+.code-block::before{content:attr(data-lang);position:absolute;top:10px;right:14px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,237,232,.25)}
+.token-keyword{color:#ff3f6c} .token-prop{color:#00f0d4} .token-value{color:#c8ff00}
+.token-comment{color:rgba(240,237,232,.3);font-style:italic} .token-selector{color:#f5c842} .token-string{color:#a78bfa}
+
+.page-orb{position:fixed;width:500px;height:500px;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+
+</style>
+</head>
+<body class="bg-bg text-cream font-mono text-sm">
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="page-orb" style="background:radial-gradient(circle,rgba(200,255,0,.08) 0%,transparent 70%);top:-100px;right:-100px;"></div>
+
+<nav class="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-12 py-5 backdrop-blur-xl border-b border-white/[.07] bg-bg/60 anim-slideDown">
+  <a href="css-showcase-tailwind.html" class="font-display text-[22px] tracking-[.08em] text-lime uppercase cursor-none">CSS Artisan</a>
+  <ul class="flex gap-7 list-none">
+    <li><a href="01-gradients.html"   class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Gradients</a></li>
+    <li><a href="02-animations.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Animations</a></li>
+    <li><a href="03-3d.html"          class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">3D</a></li>
+    <li><a href="04-clippath.html"    class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Clip-Path</a></li>
+    <li><a href="05-blendmodes.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Blend</a></li>
+    <li><a href="06-typography.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Typography</a></li>
+    <li><a href="07-glassmorphism.html" class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Glass</a></li>
+    <li><a href="08-texteffects.html" class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Text FX</a></li>
+  </ul>
+  <a href="../css.html" class="text-[10px] px-3 py-1 border border-lime text-lime rounded-full tracking-[.1em] uppercase transition-all duration-300 cursor-none hover:bg-lime hover:text-black">← Site</a>
+</nav>
+
+<main class="pt-[100px] relative z-[1]">
+<section class="px-12 py-16 max-w-[1200px] mx-auto">
+
+  <a href="../css.html" class="inline-flex items-center gap-2 text-[11px] tracking-[.15em] uppercase text-cream/40 mb-10 hover:text-lime transition-colors cursor-none fadeup-1">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M11 6H1M5 2L1 6l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Back to Techniques
+  </a>
+
+  <div class="section-label flex items-center gap-4 text-[10px] tracking-[.35em] uppercase text-lime mb-4 fadeup-1">
+    CSS Techniques <span class="text-cream/45 ml-auto">04 / 08</span>
+  </div>
+  <h1 class="font-display text-[clamp(60px,8vw,110px)] leading-[.9] tracking-[.03em] uppercase mb-4 fadeup-2">
+    <span class="text-grad-white">Shape Shift</span><br>
+    <span class="grad-shift">Clip-Path</span>
+  </h1>
+  <p class="font-serif italic text-lg text-cream/45 max-w-[560px] mb-16 leading-relaxed fadeup-3"><code class="text-lime">clip-path</code> masks an element to any geometric shape. The key power: it is fully animatable — morph between shapes smoothly with CSS transitions.</p>
+
+  <div class="grid grid-cols-2 gap-6 mb-16">
+    <div class="variant-card tech-card  reveal ">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#c8ff00">Type 01</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Polygon</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">Define any custom shape with X,Y coordinate pairs. <code class="text-lime">polygon(50% 0%, 100% 100%, 0% 100%)</code> is a triangle. Points are percentages of the element's bounding box — fully scalable.</p>
+      <div class="mb-5"><div style="display:flex;gap:20px;justify-content:center;align-items:center;height:70px">
+    <div style="width:60px;height:60px;background:linear-gradient(135deg,#c8ff00,#00f0d4);clip-path:polygon(50% 0%,100% 100%,0% 100%)"></div>
+    <div style="width:60px;height:60px;background:linear-gradient(135deg,#ff3f6c,#f5c842);clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)"></div>
+    <div style="width:60px;height:60px;background:linear-gradient(135deg,#00f0d4,#6366f1);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-comment">/* Triangle */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">polygon(50% 0%, 100% 100%, 0% 100%)</span>;
+
+<span class="token-comment">/* Hexagon */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">polygon(
+  25% 0%, 75% 0%, 100% 50%,
+  75% 100%, 25% 100%, 0% 50%
+)</span>;
+
+<span class="token-comment">/* 5-point Star */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">polygon(
+  50% 0%,61% 35%,98% 35%,68% 57%,
+  79% 91%,50% 70%,21% 91%,32% 57%,
+  2% 35%,39% 35%
+)</span>;</div>
+    </div>
+    <div class="variant-card tech-card  reveal reveal-delay-1">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#00f0d4">Type 02</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Circle &amp; Ellipse</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5"><code class="text-lime">circle(r at x y)</code> clips to a circle of radius <code class="text-lime">r</code>. <code class="text-lime">ellipse(rx ry at x y)</code> gives an oval. Both are animatable — great for reveal transitions on hover.</p>
+      <div class="mb-5"><div style="display:flex;gap:24px;justify-content:center;align-items:center;height:70px">
+    <div style="width:70px;height:70px;background:linear-gradient(135deg,#c8ff00,#00f0d4);clip-path:circle(50%)"></div>
+    <div style="width:100px;height:60px;background:linear-gradient(135deg,#ff3f6c,#f5c842);clip-path:ellipse(50% 35% at 50% 50%)"></div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-comment">/* Circle centred */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">circle(50%)</span>;
+
+<span class="token-comment">/* Ellipse */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">ellipse(50% 35% at 50% 50%)</span>;
+
+<span class="token-comment">/* Hover reveal from centre */</span>
+<span class="token-selector">.el</span>        { <span class="token-prop">clip-path</span>: <span class="token-value">circle(0%)</span>; <span class="token-prop">transition</span>: <span class="token-value">.5s</span>; }
+<span class="token-selector">.el:hover</span>  { <span class="token-prop">clip-path</span>: <span class="token-value">circle(100%)</span>; }</div>
+    </div>
+    <div class="variant-card tech-card  reveal ">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#ff3f6c">Type 03</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Animated Morph</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">Morphing requires the <strong class="text-cream/70">same number of points</strong> in both shapes. The browser interpolates each coordinate individually. Hover the demo below.</p>
+      <div class="mb-5"><div class="clip-demo-card" style="display:flex;gap:14px;justify-content:center;align-items:center;height:70px;cursor:none" onmouseenter="this.querySelectorAll('.cm').forEach((s,i)=>{const v=['polygon(0 0,100% 0,100% 100%,0 100%)','circle(50%)','polygon(50% 0%,100% 50%,50% 100%,0% 50%)','polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)'];s.style.clipPath=v[i]})" onmouseleave="this.querySelectorAll('.cm').forEach((s,i)=>{const v=['polygon(50% 0%,100% 100%,0% 100%)','polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)','polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)','circle(50%)'];s.style.clipPath=v[i]})">
+    <div class="cm" style="width:56px;height:56px;background:linear-gradient(135deg,#c8ff00,#00f0d4);transition:clip-path .5s cubic-bezier(.34,1.56,.64,1),transform .3s;clip-path:polygon(50% 0%,100% 100%,0% 100%)"></div>
+    <div class="cm" style="width:56px;height:56px;background:linear-gradient(135deg,#c8ff00,#00f0d4);transition:clip-path .5s cubic-bezier(.34,1.56,.64,1),transform .3s;clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%)"></div>
+    <div class="cm" style="width:56px;height:56px;background:linear-gradient(135deg,#c8ff00,#00f0d4);transition:clip-path .5s cubic-bezier(.34,1.56,.64,1),transform .3s;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>
+    <div class="cm" style="width:56px;height:56px;background:linear-gradient(135deg,#c8ff00,#00f0d4);transition:clip-path .5s cubic-bezier(.34,1.56,.64,1),transform .3s;clip-path:circle(50%)"></div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-selector">.shape</span> {
+  <span class="token-prop">clip-path</span>: <span class="token-value">polygon(50% 0%,100% 100%,0% 100%)</span>;
+  <span class="token-prop">transition</span>: <span class="token-value">clip-path .5s cubic-bezier(.34,1.56,.64,1)</span>;
+}
+<span class="token-comment">/* Same point count required for morphing */</span>
+<span class="token-selector">.parent:hover .shape</span> {
+  <span class="token-prop">clip-path</span>: <span class="token-value">polygon(0 0,100% 0,100% 100%,0 100%)</span>;
+}</div>
+    </div>
+    <div class="variant-card tech-card  reveal reveal-delay-1">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#f5c842">Type 04</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Inset &amp; Diagonal Cut</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5"><code class="text-lime">inset()</code> clips a rectangle from each edge with optional <code class="text-lime">round</code> keyword for radius. Diagonal hero sections use a trapezoid polygon — no extra elements or borders needed.</p>
+      <div class="mb-5"><div style="display:flex;flex-direction:column;gap:10px;align-items:center;height:70px">
+    <div style="width:200px;height:28px;background:linear-gradient(90deg,#c8ff00,#00f0d4);clip-path:inset(0 0 0 0 round 8px)"></div>
+    <div style="width:200px;height:28px;background:linear-gradient(90deg,#ff3f6c,#f5c842);clip-path:polygon(0 0,100% 0,96% 100%,4% 100%)"></div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-comment">/* Inset with rounded corners */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">inset(5px 10px round 8px)</span>;
+
+<span class="token-comment">/* Diagonal / parallelogram */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">polygon(
+  0 0, 100% 0, 96% 100%, 4% 100%
+)</span>;
+
+<span class="token-comment">/* Hero diagonal cut */</span>
+<span class="token-prop">clip-path</span>: <span class="token-value">polygon(
+  0 0, 100% 0, 100% 90%, 0 100%
+)</span>;</div>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<footer class="border-t border-white/[.07] px-12 py-6 flex items-center justify-between relative z-[1]">
+  <span class="font-display text-sm tracking-[.08em] text-cream">CSS Artisan — Narendhiran</span>
+  <span class="text-[11px] text-cream/45 tracking-[.1em] uppercase">Techniques Reference · 2026</span>
+</footer>
+
+<script>const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animCursor(){
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.variant-card,.tech-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='24px';cur.style.height='24px';ring.style.width='60px';ring.style.height='60px';ring.style.opacity='0.8';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.5';});
+});
+document.querySelectorAll('.variant-card,.tech-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  });
+});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CSS-TECHNIQUES-03</title>
+<link rel="icon" type="image/x-icon" href="../odf1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config={theme:{extend:{colors:{bg:"#050508",surface:"#0d0d14",lime:"#c8ff00",cyan:"#00f0d4",rose:"#ff3f6c",gold:"#f5c842",cream:"#f0ede8"},fontFamily:{display:['"Bebas Neue"','sans-serif'],serif:['"Instrument Serif"','serif'],mono:['"DM Mono"','monospace']},borderRadius:{card:"12px"}}}}
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { cursor: none; overflow-x: hidden; }
+::selection { background: #c8ff00; color: #000; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: #c8ff00; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #050508; }
+
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9990;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .03; pointer-events: none;
+}
+#cursor { position:fixed;width:12px;height:12px;background:#c8ff00;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;mix-blend-mode:exclusion; }
+#cursor-ring { position:fixed;width:36px;height:36px;border:1.5px solid #c8ff00;border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.5; }
+
+@keyframes slideDown { from{opacity:0;transform:translateY(-100%)} to{opacity:1;transform:translateY(0)} }
+.anim-slideDown { animation: slideDown .8s cubic-bezier(.16,1,.3,1) both; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.fadeup-1{animation:fadeUp .8s .1s both} .fadeup-2{animation:fadeUp .8s .2s both}
+.fadeup-3{animation:fadeUp .8s .3s both} .fadeup-4{animation:fadeUp .8s .4s both}
+.fadeup-5{animation:fadeUp .8s .5s both}
+
+@keyframes gradShift { to{background-position:200% center} }
+.grad-shift { background:linear-gradient(90deg,#c8ff00,#00f0d4,#c8ff00);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 3s linear infinite; }
+
+.reveal { opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); }
+.reveal.visible { opacity:1;transform:translateY(0); }
+.reveal-delay-1{transition-delay:.1s} .reveal-delay-2{transition-delay:.2s} .reveal-delay-3{transition-delay:.3s} .reveal-delay-4{transition-delay:.4s}
+
+.nav-link{position:relative}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#c8ff00;transition:width .3s ease}
+.nav-link:hover{color:#c8ff00!important}
+.nav-link:hover::after{width:100%}
+
+.section-label::before{content:'';display:block;width:40px;height:1px;background:#c8ff00}
+
+.text-grad-white{background:linear-gradient(135deg,#f0ede8 40%,rgba(240,237,232,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.text-stroke-cream{-webkit-text-stroke:1.5px rgba(240,237,232,.25);-webkit-text-fill-color:transparent}
+.text-grad-rainbow{background:linear-gradient(90deg,#ff3f6c,#f5c842,#c8ff00,#00f0d4);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 3s linear infinite}
+.text-stroke-cyan{-webkit-text-stroke:1.5px #00f0d4;-webkit-text-fill-color:transparent;letter-spacing:.05em;transition:letter-spacing .5s}
+.text-stroke-cyan:hover{letter-spacing:.3em}
+
+.tech-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.05) 0%,transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.tech-card:hover::after{opacity:1}
+
+.variant-card{background:#0d0d14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:22px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.variant-card:hover{transform:translateY(-3px)}
+.variant-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.04) 0%,transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
+.variant-card:hover::after{opacity:1}
+
+.code-block{background:#0a0a0f;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px 22px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;position:relative}
+.code-block::before{content:attr(data-lang);position:absolute;top:10px;right:14px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,237,232,.25)}
+.token-keyword{color:#ff3f6c} .token-prop{color:#00f0d4} .token-value{color:#c8ff00}
+.token-comment{color:rgba(240,237,232,.3);font-style:italic} .token-selector{color:#f5c842} .token-string{color:#a78bfa}
+
+.page-orb{position:fixed;width:500px;height:500px;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+
+@keyframes rotateCube{from{transform:rotateX(0) rotateY(0)}to{transform:rotateX(360deg) rotateY(360deg)}}
+@keyframes flipCoin{0%{transform:rotateY(0)}50%{transform:rotateY(90deg)}100%{transform:rotateY(180deg)}}
+</style>
+</head>
+<body class="bg-bg text-cream font-mono text-sm">
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<div class="page-orb" style="background:radial-gradient(circle,rgba(245,200,66,.1) 0%,transparent 70%);top:-100px;right:-100px;"></div>
+
+<nav class="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-12 py-5 backdrop-blur-xl border-b border-white/[.07] bg-bg/60 anim-slideDown">
+  <a href="css-showcase-tailwind.html" class="font-display text-[22px] tracking-[.08em] text-lime uppercase cursor-none">CSS Artisan</a>
+  <ul class="flex gap-7 list-none">
+    <li><a href="01-gradients.html"   class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Gradients</a></li>
+    <li><a href="02-animations.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Animations</a></li>
+    <li><a href="03-3d.html"          class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">3D</a></li>
+    <li><a href="04-clippath.html"    class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Clip-Path</a></li>
+    <li><a href="05-blendmodes.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Blend</a></li>
+    <li><a href="06-typography.html"  class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Typography</a></li>
+    <li><a href="07-glassmorphism.html" class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Glass</a></li>
+    <li><a href="08-texteffects.html" class="nav-link text-cream/45 text-[11px] tracking-[.15em] uppercase transition-colors duration-300 cursor-none">Text FX</a></li>
+  </ul>
+  <a href="../css.html" class="text-[10px] px-3 py-1 border border-lime text-lime rounded-full tracking-[.1em] uppercase transition-all duration-300 cursor-none hover:bg-lime hover:text-black">← Site</a>
+</nav>
+
+<main class="pt-[100px] relative z-[1]">
+<section class="px-12 py-16 max-w-[1200px] mx-auto">
+
+  <a href="../css.html" class="inline-flex items-center gap-2 text-[11px] tracking-[.15em] uppercase text-cream/40 mb-10 hover:text-lime transition-colors cursor-none fadeup-1">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M11 6H1M5 2L1 6l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    Back to Techniques
+  </a>
+
+  <div class="section-label flex items-center gap-4 text-[10px] tracking-[.35em] uppercase text-lime mb-4 fadeup-1">
+    CSS Techniques <span class="text-cream/45 ml-auto">03 / 08</span>
+  </div>
+  <h1 class="font-display text-[clamp(60px,8vw,110px)] leading-[.9] tracking-[.03em] uppercase mb-4 fadeup-2">
+    <span class="text-grad-white">CSS</span><br>
+    <span class="grad-shift">3D Transforms</span>
+  </h1>
+  <p class="font-serif italic text-lg text-cream/45 max-w-[560px] mb-16 leading-relaxed fadeup-3">Pure CSS 3D uses <code class="text-lime">perspective</code>, <code class="text-lime">transform-style:preserve-3d</code>, and 3D transform functions to build spatial depth without WebGL or canvas.</p>
+
+  <div class="grid grid-cols-2 gap-6 mb-16">
+    <div class="variant-card tech-card  reveal ">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#f5c842">Type 01</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Rotating Cube</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">Six faces positioned with <code class="text-lime">translateZ</code> and <code class="text-lime">rotateY/X</code>. The parent needs <code class="text-lime">transform-style:preserve-3d</code> so faces render in real 3D space, not flat.</p>
+      <div class="mb-5"><div style="perspective:400px;display:flex;align-items:center;justify-content:center;height:80px">
+    <div style="width:60px;height:60px;position:relative;transform-style:preserve-3d;animation:rotateCube 6s linear infinite">
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:translateZ(30px)">⬡</div>
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:rotateY(180deg) translateZ(30px)">⬡</div>
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:rotateY(-90deg) translateZ(30px)">⬡</div>
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:rotateY(90deg) translateZ(30px)">⬡</div>
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:rotateX(90deg) translateZ(30px)">⬡</div>
+      <div style="position:absolute;width:60px;height:60px;border:1px solid #f5c842;background:rgba(245,200,66,.08);display:flex;align-items:center;justify-content:center;font-size:18px;transform:rotateX(-90deg) translateZ(30px)">⬡</div>
+    </div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-selector">.wrap</span>  { <span class="token-prop">perspective</span>: <span class="token-value">400px</span>; }
+<span class="token-selector">.cube</span>  { <span class="token-prop">transform-style</span>: <span class="token-value">preserve-3d</span>; <span class="token-prop">animation</span>: <span class="token-value">rotateCube 6s linear infinite</span>; }
+<span class="token-keyword">@keyframes</span> <span class="token-selector">rotateCube</span> {
+  <span class="token-selector">from</span> { <span class="token-prop">transform</span>: <span class="token-value">rotateX(0) rotateY(0)</span>; }
+  <span class="token-selector">to</span>   { <span class="token-prop">transform</span>: <span class="token-value">rotateX(360deg) rotateY(360deg)</span>; }
+}
+<span class="token-selector">.face-front</span>  { <span class="token-prop">transform</span>: <span class="token-value">translateZ(30px)</span>; }
+<span class="token-selector">.face-back</span>   { <span class="token-prop">transform</span>: <span class="token-value">rotateY(180deg) translateZ(30px)</span>; }
+<span class="token-selector">.face-left</span>   { <span class="token-prop">transform</span>: <span class="token-value">rotateY(-90deg) translateZ(30px)</span>; }</div>
+    </div>
+    <div class="variant-card tech-card  reveal reveal-delay-1">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#00f0d4">Type 02</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Card Flip</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">Outer wrapper holds <code class="text-lime">perspective</code>, inner wrapper holds <code class="text-lime">preserve-3d</code> and transitions <code class="text-lime">rotateY</code>. The back face is pre-rotated 180° and hidden with <code class="text-lime">backface-visibility:hidden</code>.</p>
+      <div class="mb-5"><div style="display:flex;align-items:center;justify-content:center;gap:16px;height:80px">
+    <div style="perspective:600px">
+      <div style="width:80px;height:100px;position:relative;transform-style:preserve-3d;transition:transform .6s;cursor:none" onmouseenter="this.style.transform='rotateY(180deg)'" onmouseleave="this.style.transform='rotateY(0)'">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0d1a2e,#1a0a2e);border:1px solid rgba(200,255,0,.3);border-radius:8px;backface-visibility:hidden;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';letter-spacing:.1em;color:#c8ff00;font-size:13px">FRONT</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a2e1a,#0a1a2e);border:1px solid rgba(0,240,212,.3);border-radius:8px;backface-visibility:hidden;transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';letter-spacing:.1em;color:#00f0d4;font-size:13px">BACK</div>
+      </div>
+    </div>
+    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,232,.3)">hover card →</p>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-selector">.scene</span>      { <span class="token-prop">perspective</span>: <span class="token-value">600px</span>; }
+<span class="token-selector">.card</span>       { <span class="token-prop">transform-style</span>: <span class="token-value">preserve-3d</span>; <span class="token-prop">transition</span>: <span class="token-value">transform .6s</span>; }
+<span class="token-selector">.card:hover</span> { <span class="token-prop">transform</span>: <span class="token-value">rotateY(180deg)</span>; }
+<span class="token-selector">.front, .back</span> { <span class="token-prop">backface-visibility</span>: <span class="token-value">hidden</span>; }
+<span class="token-selector">.back</span>       { <span class="token-prop">transform</span>: <span class="token-value">rotateY(180deg)</span>; }</div>
+    </div>
+    <div class="variant-card tech-card  reveal ">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#c8ff00">Type 03</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Hover Tilt</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">Combine <code class="text-lime">rotateY</code>, <code class="text-lime">rotateX</code>, and <code class="text-lime">translateZ</code> on hover for a parallax tilt. The spring easing <code class="text-lime">cubic-bezier(.34,1.56,.64,1)</code> gives a physical feel.</p>
+      <div class="mb-5"><div style="perspective:600px;display:flex;align-items:center;justify-content:center;gap:16px;height:80px">
+    <div style="width:100px;height:120px;background:linear-gradient(135deg,#1a0a2e,#0d1a2e);border:1px solid rgba(200,255,0,.3);border-radius:8px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.34,1.56,.64,1);cursor:none;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';letter-spacing:.1em;color:#c8ff00;font-size:13px" onmouseenter="this.style.transform='rotateY(25deg) rotateX(-10deg) translateZ(20px)'" onmouseleave="this.style.transform=''">TILT</div>
+    <p style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,232,.3)">hover →</p>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-selector">.scene</span> { <span class="token-prop">perspective</span>: <span class="token-value">600px</span>; }
+<span class="token-selector">.card</span> {
+  <span class="token-prop">transition</span>: <span class="token-value">transform .6s cubic-bezier(.34,1.56,.64,1)</span>;
+}
+<span class="token-selector">.card:hover</span> {
+  <span class="token-prop">transform</span>: <span class="token-value">rotateY(25deg) rotateX(-10deg)
+    translateZ(20px)</span>;
+}</div>
+    </div>
+    <div class="variant-card tech-card  reveal reveal-delay-1">
+      <p class="text-[10px] tracking-[.2em] mb-3 uppercase" style="color:#ff3f6c">Type 04</p>
+      <h3 class="font-display text-[28px] tracking-[.05em] text-cream mb-2">Coin Flip</h3>
+      <p class="text-xs text-cream/45 leading-relaxed mb-5">A single element animated with <code class="text-lime">rotateY</code> — as it passes 90° the shape appears to vanish and re-emerge. Combine with a radial gradient for a metallic sheen.</p>
+      <div class="mb-5"><div style="perspective:300px;display:flex;align-items:center;justify-content:center;height:80px">
+    <div style="width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8c0,#f5c842 50%,#c8750a);border:2px solid #f5c842;animation:flipCoin 3s ease-in-out infinite;transform-style:preserve-3d"></div>
+  </div></div>
+      <div class="code-block" data-lang="CSS"><span class="token-keyword">@keyframes</span> <span class="token-selector">flipCoin</span> {
+  <span class="token-selector">0%</span>   { <span class="token-prop">transform</span>: <span class="token-value">rotateY(0)</span>; }
+  <span class="token-selector">50%</span>  { <span class="token-prop">transform</span>: <span class="token-value">rotateY(90deg)</span>; }
+  <span class="token-selector">100%</span> { <span class="token-prop">transform</span>: <span class="token-value">rotateY(180deg)</span>; }
+}
+<span class="token-selector">.coin</span> {
+  <span class="token-prop">animation</span>: <span class="token-value">flipCoin 3s ease-in-out infinite</span>;
+}</div>
+    </div>
+  </div>
+
+</section>
+</main>
+
+<footer class="border-t border-white/[.07] px-12 py-6 flex items-center justify-between relative z-[1]">
+  <span class="font-display text-sm tracking-[.08em] text-cream">CSS Artisan — Narendhiran</span>
+  <span class="text-[11px] text-cream/45 tracking-[.1em] uppercase">Techniques Reference · 2026</span>
+</footer>
+
+<script>const cur=document.getElementById('cursor');
+const ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function animCursor(){
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.variant-card,.tech-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='24px';cur.style.height='24px';ring.style.width='60px';ring.style.height='60px';ring.style.opacity='0.8';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.5';});
+});
+document.querySelectorAll('.variant-card,.tech-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+    card.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+  });
+});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
