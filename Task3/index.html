@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>Professional Registration</h1>
+            <p>Complete your profile with accurate information</p>
+        </div>
+
+        <form class="form-content" id="registrationForm" novalidate>
+            <div class="form-section">
+                <h2 class="section-title">Personal Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="dob" name="dob" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gender">Gender <span class="required">*</span></label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select your gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer-not-to-say">Prefer not to say</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality <span class="required">*</span></label>
+                        <input type="text" id="nationality" name="nationality" placeholder="Indian" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Address Information</h2>
+                
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="street">Street Address <span class="required">*</span></label>
+                        <input type="text" id="street" name="street" placeholder="123 Main Street" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" placeholder="Chennai" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State/Province <span class="required">*</span></label>
+                        <input type="text" id="state" name="state" placeholder="Tamil Nadu" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zip">ZIP/Postal Code <span class="required">*</span></label>
+                        <input type="text" id="zip" name="zip" placeholder="600001" required>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <input type="text" id="country" name="country" placeholder="India" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Professional Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="education">Education Level <span class="required">*</span></label>
+                        <select id="education" name="education" required>
+                            <option value="">Select your education level</option>
+                            <option value="high-school">High School</option>
+                            <option value="bachelor">Bachelor's Degree</option>
+                            <option value="master">Master's Degree</option>
+                            <option value="phd">PhD</option>
+                        </select>
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Years of Experience <span class="required">*</span></label>
+                        <input type="text" id="experience" name="experience" placeholder="2" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Current Company</label>
+                        <input type="text" id="company" name="company" placeholder="Your Company Name">
+                        <div class="error-message"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="designation">Job Title <span class="required">*</span></label>
+                        <input type="text" id="designation" name="designation" placeholder="Software Engineer" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="skills">Key Skills <span class="required">*</span></label>
+                        <textarea id="skills" name="skills" placeholder="Enter your skills separated by commas (e.g., JavaScript, React, Node.js)" required></textarea>
+                        <div class="error-message"></div>
+                        <div class="field-info">List your technical skills separated by commas</div>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label for="bio">Professional Bio</label>
+                        <textarea id="bio" name="bio" placeholder="Brief description about yourself and your professional background"></textarea>
+                        <div class="field-info">Optional: Share your professional summary</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Account Security</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" placeholder="Enter a strong password" required>
+                        <div class="error-message"></div>
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText">Password strength: -</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Agreement</h2>
+                
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the Terms & Conditions <span class="required">*</span></label>
+                    </div>
+                    <div class="error-message" id="termsError"></div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privacy" name="privacy" required>
+                        <label for="privacy">I agree to the Privacy Policy <span class="required">*</span></label>
+                    </div>
+                    <div class="error-message" id="privacyError"></div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="marketing" name="marketing">
+                        <label for="marketing">I would like to receive marketing communications</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Register Now</button>
+                <button type="reset" class="btn-reset">Clear Form</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-modal">
+            <div class="success-icon">✓</div>
+            <h2>Registration Successful!</h2>
+            <p>Your registration has been completed successfully. Welcome to our platform!</p>
+            <button class="btn-close-modal" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
