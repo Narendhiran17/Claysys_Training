@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ctnr">
+        <header>
+        <h1>CALCULATOR</h1>
+        </header>
+        <div class="display">
+        <input id="display" type="text" readonly >
+        </div>
+        <div class="btn">
+            <!--Row 1-->
+            <button type="button" id="btns" onclick="handleClear()" class="btn-action">AC</button>
+            <button type="button" onclick="handleBackspace()" class="backspace">⌫</button>
+          <!--  <button type="button" id="btns" onclick="handleOperator('%')" class="btn-operator">%</button> -->
+            <button type="button" id="btns"  onclick="handleOperator('/')" class="btn-operator">/</button>
+
+            <!--Row 2-->
+            <button type="button" id="btns" onclick="handleNumber('7')" class="btn-number">7</button>
+            <button type="button" id="btns" onclick="handleNumber('8')" class="btn-number">8</button>
+            <button type="button" id="btns" onclick="handleNumber('9')" class="btn-number">9</button>
+            <button type="button" id="btns" onclick="handleOperator('*')" class="btn-operator">x</button>
+
+            <!--Row 3-->
+            <button type="button" id="btns" onclick="handleNumber('4')" class="btn-number">4</button>
+            <button type="button" id="btns" onclick="handleNumber('5')" class="btn-number">5</button>
+            <button type="button" id="btns" onclick="handleNumber('6')" class="btn-number">6</button>
+            <button type="button" id="btns" onclick="handleOperator('-')" class="btn-operator">-</button>
+
+            <!--Row 4-->
+            <button type="button" id="btns" onclick="handleNumber('1')" class="btn-number">1</button>
+            <button type="button" id="btns" onclick="handleNumber('2')" class="btn-number">2</button>
+            <button type="button" id="btns" onclick="handleNumber('3')" class="btn-number">3</button>
+            <button type="button" id="btns" onclick="handleOperator('+')" class="btn-operator">+</button>
+
+             <!--Row 5-->
+            <button type="button" id="btns" onclick="handleNumber('00')" class="btn-number">00</button>
+            <button type="button" id="btns" onclick="handleNumber('0')" class="btn-number">0</button>
+            <button type="button" id="btns" onclick="handleNumber('.')" class="btn-number">.</button>
+            <button type="button" id="btns" onclick="handleEqual()" class="btn-result">=</button>
+        </div>
+    </div>
+    <script src="script.js">
+        updateDisplay();
+    </script>
+   
+</body>
+</html>

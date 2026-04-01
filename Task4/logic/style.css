@@ -1,0 +1,44 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    background-color: #023415;
+    color: #ffffff;
+}
+
+.ctnr{
+    background: whitesmoke;
+    padding: 20px;
+    width: 300px;
+    margin:auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px greenyellow;
+    color:#023415
+}
+
+.section{
+    margin-top: 20px;
+}
+
+input{
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid;
+}
+
+input:hover{
+    box-shadow: 0 0 10px #13b752;
+}
+
+button{
+    background: #13b752;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 8px 12px;
+}
+
+button:hover{
+    transform: scale(0.90);
+}
