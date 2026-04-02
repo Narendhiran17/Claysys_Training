@@ -1,0 +1,78 @@
+CREATE TABLE Users(
+ u_id int primary key identity(1,1),
+ u_name varchar(100),
+ u_email varchar(100) unique,
+ u_password varchar(100)
+ );
+
+create table Categories(
+  c_id int primary key identity(1,1),
+  c_name varchar(100)
+  );
+
+ create table Products(
+   p_id int primary key identity(1,1),
+   p_name varchar(100),
+   p_price decimal(10,2),
+   p_stock int,
+   c_id int,
+   foreign key (c_id) references Categories(c_id)
+   );
+
+create table Orders(
+  o_id int primary key identity(1,1),
+  u_id int,
+  o_amount decimal(10,2)
+  foreign key (u_id) references Users(u_id)
+  );
+
+create table OrderItems(
+  oi_id int primary key identity(1,1),
+  o_id int,
+  p_id int,
+  oi_quantity int,
+  oi_price decimal(10,2),
+  foreign key (o_id) references Orders(o_id),
+  foreign key (p_id) references Products(p_id)
+  );
+
+create table Cart(
+  ct_id int primary key identity(1,1),
+  u_id int,
+  p_id int,
+  ct_quantity int,
+  foreign key (u_id) references Users(u_id),
+  foreign key (p_id) references Products(p_id)
+);
+
+
+create table Payments(
+  py_id int primary key identity(1,1),
+  o_id int,
+  py_method varchar(50),
+  py_status varchar(50),
+  py_amount decimal(10,2),
+
+  foreign key (o_id) references Orders(o_id)
+);
+
+create table Address(
+  ad_id int primary key identity(1,1),
+  u_id int,
+  full_ad varchar(255),
+  city varchar(100),
+  state varchar(100),
+  pincode varchar(10),
+  foreign key (u_id) references Users(u_id)
+);
+
+create table Shipments(
+  sh_id int primary key identity(1,1),
+  o_id int,
+  ad_id int,
+  ship_status varchar(50),
+  shipped_date datetime,
+  delivery_date datetime,
+  foreign key (o_id) references Orders(o_id),
+  foreign key (ad_id) references Address(ad_id)
+);
